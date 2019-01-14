@@ -121,5 +121,5 @@ class BraintreeException(Exception):
 
     def __init__(self, *args, **kwargs):
         if args or kwargs:
-            super().__init__(*args, **kwargs)
-        super().__init__(DEFAULT_ERROR_MESSAGE)
+            return super().__init__(*args, **kwargs)
+        return super().__init__(DEFAULT_ERROR_MESSAGE)
