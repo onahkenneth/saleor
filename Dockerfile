@@ -2,7 +2,7 @@
 FROM python:3.7 as build-python
 
 RUN apt-get -y update \
-  && apt-get install -y gettext \
+  && apt-get install -y gettext vim \
   # Cleanup apt cache
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

@@ -10,6 +10,9 @@ services:
     restart: unless-stopped
     networks:
       - saleor-backend-tier
+      - saleor-frontend-tier
+    volumes:
+      - /Users/kennethonah/docker/apps/saleor:/app:cached
     env_file: common.env
     depends_on:
       - db
@@ -21,7 +24,7 @@ services:
     networks:
       - saleor-backend-tier
     volumes:
-      - saleor-db:/var/lib/postgresql
+      - ./postgresql:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=saleor
       - POSTGRES_PASSWORD=saleor
@@ -32,7 +35,7 @@ services:
     networks:
       - saleor-backend-tier
     volumes:
-      - saleor-redis:/data
+      - /Users/kennethonah/.docker/data/redis:/data
 
   celery:
     build:
@@ -49,11 +52,13 @@ services:
       - redis
 
 volumes:
-  saleor-db:
+  db:
     driver: local
-  saleor-redis:
+  redis:
     driver: local
 
 networks:
   saleor-backend-tier:
+    driver: bridge
+  saleor-frontend-tier:
     driver: bridge
